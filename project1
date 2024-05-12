@@ -1,0 +1,54 @@
+package Nogame;
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class NumberGame {
+	public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+        System.out.println("WelCome to Number Game ");
+
+          int LOWER_BOUND = 0;
+          int UPPER_BOUND = 100;
+          int MAX_ATTEMPTS = 5;
+
+        boolean playAgain = true;
+
+        while (playAgain) {
+            int numberToGuess = random.nextInt(UPPER_BOUND + LOWER_BOUND + 1);
+            int attempt = 0;
+
+            while (attempt < MAX_ATTEMPTS) {
+            	
+                System.out.print("Enter your guess: ");
+                if (scanner.hasNextInt()) {
+                    int userGuess = scanner.nextInt();
+                    attempt++;
+
+                    if (userGuess == numberToGuess) {
+                        System.out.println("Congratulations! You guessed the correct number in " + attempt + " attempts.");
+                        break;
+                    } else if (userGuess < numberToGuess) {
+                        System.out.println("Too low! Try again.");
+                    } else {
+                        System.out.println("Too High! Try again.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a valid number.");
+                    scanner.next();  
+                }
+            }
+
+            if (attempt == MAX_ATTEMPTS) {
+                System.out.println("Sorry, you have reached the maximum number of attempts. The correct number was: " + numberToGuess);
+            }
+
+            System.out.print("Do you want to play again? (y/n): ");
+            String playAgainInput = scanner.next().toLowerCase();
+            playAgain = playAgainInput.equals("y");
+        }
+
+        scanner.close();
+        System.out.println("Thanks for playing!");
+    }
